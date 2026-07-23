@@ -1,43 +1,53 @@
-import React, { useState } from "react";
+import React from "react";
 
-export const Pagination = () => {
-  const [cuurentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
-  const totlaItems = 50;
-  const totalPages = Math.ceil(totlaItems / itemsPerPage);
+export const Pagination = ({
+  currentPage,
+  totalItems,
+  itemsPerPage,
+  onPageChange,
+  onItemsPerPageChange,
+}) => {
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-  // Функция для изменения текущей страницы
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
+      onPageChange(page);
     }
   };
 
   return (
     <section className="pagination">
       <button
-        onClick={() => handlePageChange(cuurentPage - 1)}
-        disabled={cuurentPage === 1}
+        type="button"
+        onClick={() => handlePageChange(currentPage - 1)}
+        disabled={currentPage === 1}
       >
         Previous
       </button>
-    {Array.from({length: totalPages}), (_, index) => (
+
+      {Array.from({ length: totalPages }).map((_, index) => (
         <button
-        key={index + 1}
-        onClick={() => handlePageChange(index + 1)}
-        className={cuurentPage === index + 1 ? 'active' : ''}
+          type="button"
+          key={index + 1}
+          onClick={() => handlePageChange(index + 1)}
+          className={currentPage === index + 1 ? "active" : ""}
         >
-            {index + 1}
+          {index + 1}
         </button>
-    )}
+      ))}
 
       <button
-        onClick={() => handlePageChange(cuurentPage - 1)}
-        disabled={cuurentPage === 1}
+        type="button"
+        onClick={() => handlePageChange(currentPage + 1)}
+        disabled={currentPage === totalPages || totalPages === 0}
       >
         Next
       </button>
-      <select>
+
+      <select
+        value={itemsPerPage}
+        onChange={(e) => onItemsPerPageChange(Number(e.target.value))}
+      >
         <option value="10">10</option>
         <option value="20">20</option>
         <option value="30">30</option>
@@ -47,5 +57,3 @@ export const Pagination = () => {
     </section>
   );
 };
-
-export default Pagination;
