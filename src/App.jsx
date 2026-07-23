@@ -1,11 +1,11 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
-
 function App() {
- 
-}
-
-export default App
+  // Логика трёх состояний сортировки
+  function getNextSort(current, clickedField) {
+    if (current.field !== clickedField) {
+      return { field: clickedField, order: "asc" };
+    }
+    if (current.order === "asc") return { field: clickedField, order: "desc" };
+    return { field: null, order: null };
+  };
+};
+export default App;
