@@ -22,7 +22,7 @@ function App() {
     if (current.order === "asc") return { field: clickedField, order: "desc" };
     return { field: null, order: null };
   }
-}
+
 
 return (
   <Pagination
@@ -36,4 +36,5 @@ return (
     }}
   />
 );
+}
 export default App;
